@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>A Universe Made Just for You — Happy 18th Birthday, DEWMI</title>
+
+  <!-- Google Fonts: Editorial Serif, Clean Sans, Calligraphic Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js & GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            burgundy: {
+              950: '#120509',
+              900: '#1C0A10',
+              800: '#2A0E17',
+              700: '#3D1522',
+            },
+            dusty: '#C98A95',
+            champagne: '#F3E5D8',
+            ivory: '#FAF6F0',
+            blush: '#E8C5CC',
+            rosegold: {
+              DEFAULT: '#D4A373',
+              light: '#E6BE9A',
+              dark: '#A8794B',
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            script: ['"Pinyon Script"', 'cursive'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-deep: #1C0A10;
+      --bg-plum: #2A0E17;
+      --dusty-rose: #C98A95;
+      --champagne: #F3E5D8;
+      --warm-ivory: #FAF6F0;
+      --soft-blush: #E8C5CC;
+      --rose-gold: #D4A373;
+      --rose-gold-light: #E8C39E;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-deep);
+      color: var(--champagne);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      selection-background-color: rgba(212, 163, 115, 0.35);
+    }
+
+    ::selection {
+      background: rgba(212, 163, 115, 0.35);
+      color: #FAF6F0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #14060B;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(212, 163, 115, 0.35);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(212, 163, 115, 0.65);
+    }
+
+    /* Subtle Film Grain Overlay */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 45;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Fixed Full-Viewport 3D Canvas */
+    #webgl-stage {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: auto;
+    }
+
+    /* Luxury Glassmorphism */
+    .luxury-glass {
+      background: linear-gradient(135deg, rgba(42, 14, 23, 0.68) 0%, rgba(28, 10, 16, 0.82) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(212, 163, 115, 0.24);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(250, 246, 240, 0.08);
+    }
+
+    .ivory-paper {
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.92), rgba(247, 239, 228, 0.96) 55%, rgba(235, 221, 204, 0.98) 100%);
+      box-shadow:
+        0 30px 70px rgba(10, 3, 6, 0.65),
+        inset 0 0 40px rgba(212, 163, 115, 0.14),
+        inset 0 0 0 1px rgba(180, 140, 100, 0.25);
+    }
+
+    /* Rose Gold Shimmer Text */
+    .text-rosegold-gradient {
+      background: linear-gradient(120deg, #F3E5D8 0%, #E8C39E 35%, #D4A373 65%, #FAF6F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: shimmerGold 8s linear infinite;
+    }
+
+    @keyframes shimmerGold {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Entrance Button Halo */
+    .btn-atelier {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      border: 1px solid rgba(212, 163, 115, 0.5);
+      background: linear-gradient(135deg, rgba(212, 163, 115, 0.18) 0%, rgba(201, 138, 149, 0.12) 100%);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(212, 163, 115, 0.12);
+    }
+    .btn-atelier::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(250, 246, 240, 0.28), transparent);
+      transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .btn-atelier:hover::before {
+      left: 120%;
+    }
+    .btn-atelier:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232, 195, 158, 0.9);
+      box-shadow: 0 16px 45px rgba(212, 163, 115, 0.25), inset 0 0 24px rgba(212, 163, 115, 0.22);
+    }
+
+    /* 3D Envelope & Wax Seal Architecture */
+    .envelope-stage {
+      perspective: 1600px;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      height: 360px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #EFE3D3 0%, #DFCCB6 100%);
+      box-shadow: 0 32px 70px rgba(8, 2, 4, 0.72);
+      border: 1px solid rgba(186, 146, 108, 0.45);
+    }
+
+    .envelope-pocket-left,
+    .envelope-pocket-right,
+    .envelope-pocket-bottom {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 10px;
+    }
+
+    .envelope-pocket-left {
+      background: linear-gradient(135deg, #F5EBDD 0%, #E4D2BC 100%);
+      clip-path: polygon(0 0, 52% 52%, 0 100%);
+      z-index: 4;
+    }
+
+    .envelope-pocket-right {
+      background: linear-gradient(225deg, #F2E6D6 0%, #DFCCB4 100%);
+      clip-path: polygon(100% 0, 48% 52%, 100% 100%);
+      z-index: 4;
+    }
+
+    .envelope-pocket-bottom {
+      background: linear-gradient(0deg, #E8D6C0 0%, #F7EFE4 100%);
+      clip-path: polygon(0 100%, 50% 44%, 100% 100%);
+      z-index: 5;
+      filter: drop-shadow(0 -4px 8px rgba(60, 30, 20, 0.14));
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 58%;
+      background: linear-gradient(180deg, #F8F0E5 0%, #E5D1B9 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 1.1s cubic-bezier(0.34, 1.35, 0.64, 1), z-index 0.2s linear 0.4s;
+      z-index: 6;
+      filter: drop-shadow(0 8px 14px rgba(45, 20, 15, 0.22));
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .envelope-wrapper.is-open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    /* Metallic Rose-Gold Wax Seal */
+    .wax-seal {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      z-index: 8;
+      cursor: pointer;
+      background: radial-gradient(circle at 32% 28%, #F0CFAF 0%, #D49B6A 42%, #9C623E 82%, #734226 100%);
+      box-shadow:
+        0 10px 24px rgba(25, 8, 12, 0.48),
+        inset 0 2px 5px rgba(255, 245, 230, 0.65),
+        inset 0 -4px 8px rgba(65, 30, 15, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+    }
+
+    .wax-seal::before {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 238, 215, 0.55);
+      box-shadow: inset 0 1px 3px rgba(70, 32, 14, 0.5);
+    }
+
+    .wax-seal:hover {
+      transform: translate(-50%, -50%) scale(1.07);
+    }
+
+    .envelope-wrapper.is-open .wax-seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.35) rotate(18deg);
+      pointer-events: none;
+    }
+
+    /* Letter Line Reveal Animation */
+    .letter-line {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .letter-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Equalizer Bars */
+    .eq-bar {
+      width: 2.5px;
+      background: #E6BE9A;
+      border-radius: 99px;
+      transition: height 0.2s ease;
+    }
+    .eq-playing .eq-bar:nth-child(1) { animation: eqBounce 0.9s ease-in-out infinite; }
+    .eq-playing .eq-bar:nth-child(2) { animation: eqBounce 0.65s ease-in-out infinite 0.15s; }
+    .eq-playing .eq-bar:nth-child(3) { animation: eqBounce 1.05s ease-in-out infinite 0.3s; }
+    .eq-playing .eq-bar:nth-child(4) { animation: eqBounce 0.75s ease-in-out infinite 0.1s; }
+
+    @keyframes eqBounce {
+      0%, 100% { height: 4px; }
+      50% { height: 15px; }
+    }
+
+    /* Editorial Gallery Archival Frame */
+    .archival-card {
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.65s ease;
+    }
+    .archival-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(212, 163, 115, 0.42);
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-rosegold/30">
+
+  <!-- Subtle Film Texture -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Fixed Interactive 3D WebGL Canvas -->
+  <canvas id="webgl-stage" aria-label="Interactive 3D Rose Universe"></canvas>
+
+  <!-- WebGL Graceful Fallback Banner (hidden unless WebGL fails) -->
+  <div id="webgl-fallback" class="hidden fixed inset-0 z-0 bg-gradient-to-b from-burgundy-900 via-burgundy-800 to-burgundy-950 pointer-events-none">
+    <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_35%,#C98A95_0%,transparent_60%)]"></div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- ACT I: CINEMATIC OPENING CURTAINS (FULL-SCREEN ENTRANCE)              -->
+  <!-- ===================================================================== -->
+  <section id="opening-curtain" class="fixed inset-0 z-50 flex flex-col items-center justify-between px-6 py-10 md:py-14 bg-gradient-to-b from-burgundy-950/90 via-burgundy-900/75 to-burgundy-950/92 backdrop-blur-[2px] transition-opacity duration-1000">
+    <!-- Top Monogram Header -->
+    <div class="w-full max-w-5xl flex items-center justify-between text-xs tracking-[0.32em] uppercase text-champagne/60 font-light">
+      <span>Edition XVIII</span>
+      <span class="text-rosegold-light">D &bull; 18</span>
+      <span>A Private Universe</span>
+    </div>
+
+    <!-- Center Poetic Sequence & Entrance CTA -->
+    <div class="relative z-10 max-w-2xl mx-auto text-center flex flex-col items-center my-auto">
+      <p class="text-[11px] md:text-xs uppercase tracking-[0.38em] text-rosegold-light/85 mb-6 font-medium">
+        A Universe Made Just for You
+      </p>
+
+      <div class="min-h-[150px] md:min-h-[175px] flex flex-col items-center justify-center space-y-3">
+        <p id="intro-line-1" class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-champagne/90 font-light opacity-0 translate-y-4">
+          Some moments are special...
+        </p>
+        <p id="intro-line-2" class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-blush font-light opacity-0 translate-y-4">
+          Some people make life beautiful...
+        </p>
+        <h1 id="intro-line-3" class="font-serif text-3xl sm:text-5xl md:text-6xl text-rosegold-gradient font-normal tracking-wide pt-2 opacity-0 translate-y-4">
+          And today is all about YOU.
+        </h1>
+      </div>
+
+      <div id="intro-cta-wrap" class="mt-10 opacity-0 translate-y-4 flex flex-col items-center gap-4">
+        <button id="enter-world-btn" type="button" class="btn-atelier px-9 py-4 rounded-full text-xs sm:text-sm uppercase tracking-[0.28em] text-ivory font-medium cursor-pointer flex items-center gap-3">
+          <span>ENTER YOUR WORLD</span>
+          <span class="text-rosegold-light text-base leading-none">&#9825;</span>
+        </button>
+        <span class="text-[11px] tracking-[0.2em] uppercase text-champagne/45">
+          Sound &amp; 3D Experience &bull; Best with audio on
+        </span>
+      </div>
+    </div>
+
+    <!-- Bottom Decorative Hairline -->
+    <div class="w-full max-w-xs flex flex-col items-center gap-2 opacity-60">
+      <div class="w-px h-8 bg-gradient-to-b from-transparent via-rosegold to-transparent"></div>
+      <span class="text-[10px] uppercase tracking-[0.35em] text-champagne/60">For Dewmi</span>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TOP EDITORIAL NAVIGATION (Appears after entering)                     -->
+  <!-- ===================================================================== -->
+  <header id="top-nav" class="fixed top-0 left-0 right-0 z-30 px-5 md:px-10 py-4 transition-all duration-700 opacity-0 -translate-y-4 pointer-events-none">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between luxury-glass rounded-full px-5 md:px-8 py-3 pointer-events-auto">
+      <a href="#hero" class="font-serif italic text-lg md:text-xl tracking-wider text-ivory flex items-center gap-2">
+        <span class="text-rosegold-light">Dewmi</span>
+        <span class="text-xs not-italic uppercase tracking-[0.25em] text-champagne/50 hidden sm:inline">&bull; XVIII</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-[0.24em] text-champagne/75">
+        <a href="#hero" class="hover:text-rosegold-light transition-colors">Overture</a>
+        <a href="#gallery" class="hover:text-rosegold-light transition-colors">Chapters of Light</a>
+        <a href="#letter" class="hover:text-rosegold-light transition-colors">The Letter</a>
+        <a href="#cake-section" class="hover:text-rosegold-light transition-colors">Eighteen Wishes</a>
+        <a href="#garden-finale" class="hover:text-rosegold-light transition-colors">Sanctuary</a>
+      </div>
+
+      <button id="bloom-burst-btn" type="button" class="text-[11px] uppercase tracking-[0.22em] text-rosegold-light hover:text-ivory transition-colors flex items-center gap-1.5 cursor-pointer" title="Scatter Rose Petals">
+        <span class="w-1.5 h-1.5 rounded-full bg-rosegold animate-pulse"></span>
+        <span>Scatter Petals</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN SCROLLABLE STORYTELLING EXPERIENCE                               -->
+  <!-- ===================================================================== -->
+  <main id="main-experience" class="relative z-10 pointer-events-none opacity-0 transition-opacity duration-1000">
+
+    <!-- =================================================================== -->
+    <!-- ACT II: MAIN HERO — "Happy 18th Birthday, DEWMI"                    -->
+    <!-- =================================================================== -->
+    <section id="hero" class="min-h-screen flex flex-col justify-between px-6 md:px-14 pt-28 pb-12 max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10 my-auto">
+        <!-- Left Editorial Title Block -->
+        <div class="max-w-2xl pointer-events-auto">
+          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full luxury-glass mb-6">
+            <span class="w-2 h-2 rounded-full bg-rosegold"></span>
+            <span class="text-[11px] uppercase tracking-[0.3em] text-champagne/85">Chapter I &bull; Celebrating Eighteen Years</span>
+          </div>
+
+          <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-light leading-[1.04] tracking-tight text-ivory">
+            Happy 18th Birthday,
+            <span class="block italic font-normal text-rosegold-gradient mt-1">DEWMI</span>
+          </h2>
+
+          <p class="mt-6 font-serif italic text-xl sm:text-2xl md:text-[1.65rem] text-blush/95 font-light max-w-xl leading-relaxed">
+            “Today, the world celebrates someone truly beautiful.”
+          </p>
+
+          <p class="mt-4 text-sm sm:text-base text-champagne/75 font-light max-w-lg leading-relaxed">
+            Eighteen years of grace, warmth, and quiet magic. Move your cursor to orbit the rose, or touch it to release a shower of velvet petals.
+          </p>
+
+          <div class="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#gallery" class="btn-atelier px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.25em] text-ivory font-medium">
+              Explore Your Story
+            </a>
+            <button id="hero-bloom-toggle" type="button" class="px-6 py-3.5 rounded-full luxury-glass text-xs uppercase tracking-[0.22em] text-champagne/85 hover:text-ivory transition-colors cursor-pointer">
+              Pulse Rose Bloom
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Minimalist Editorial Plaque -->
+        <div class="pointer-events-auto lg:max-w-xs luxury-glass rounded-2xl p-6 border border-rosegold/25 self-start lg:self-end">
+          <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-rosegold-light mb-3">
+            <span>The Eighteenth Year</span>
+            <span>No. 018</span>
+          </div>
+          <p class="font-serif italic text-lg text-ivory/95 leading-snug">
+            “A rare bloom that turns ordinary days into timeless memories.”
+          </p>
+          <div class="mt-4 pt-4 border-t border-champagne/10 flex items-center justify-between text-[11px] text-champagne/60">
+            <span>Interactive 3D Sculpture</span>
+            <span class="text-rosegold-light">Drag &bull; Scroll</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll Cue -->
+      <div class="flex flex-col items-center justify-center pt-8 pointer-events-auto">
+        <a href="#gallery" class="group flex flex-col items-center gap-2 text-champagne/60 hover:text-rosegold-light transition-colors">
+          <span class="text-[10px] uppercase tracking-[0.34em]">Scroll into the chapters</span>
+          <span class="w-px h-10 bg-gradient-to-b from-rosegold/80 to-transparent group-hover:h-12 transition-all"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ACT III: PERSONAL EDITORIAL PHOTO GALLERY ("Chapters of Light")     -->
+    <!-- =================================================================== -->
+    <section id="gallery" class="relative py-24 md:py-36 px-6 md:px-14 pointer-events-auto">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14 md:mb-20">
+          <div>
+            <p class="text-xs uppercase tracking-[0.34em] text-rosegold-light mb-3">Chapter II &bull; Curated Memories</p>
+            <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-ivory">
+              Chapters of <span class="italic text-blush">Light</span>
+            </h2>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <p class="text-xs sm:text-sm text-champagne/70 max-w-xs leading-relaxed">
+              Every photograph curated for Dewmi's 18th chapter—click any frame to inspect in full screen.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+              <label class="btn-atelier px-5 py-3 rounded-full text-xs uppercase tracking-[0.22em] text-ivory cursor-pointer inline-flex items-center gap-2" title="Select C:\Users\DELL\Downloads\birthday images folder">
+                <svg class="w-4 h-4 text-rosegold-light" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+                </svg>
+                <span>Load Folder</span>
+                <input id="folder-photo-input" type="file" webkitdirectory directory multiple accept="image/*" class="hidden" />
+              </label>
+              <label class="px-5 py-3 rounded-full luxury-glass border border-rosegold/40 text-xs uppercase tracking-[0.22em] text-rosegold-light hover:text-ivory hover:border-rosegold transition-colors cursor-pointer inline-flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Select Photos</span>
+                <input id="bulk-photo-input" type="file" accept="image/*" multiple class="hidden" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetrical Editorial Lookbook Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ACT IV: INTERACTIVE WAX-SEALED LOVE LETTER                          -->
+    <!-- =================================================================== -->
+    <section id="letter" class="relative py-24 md:py-36 px-6 md:px-14 pointer-events-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="text-xs uppercase tracking-[0.34em] text-rosegold-light mb-3">Chapter III &bull; Sealed in Rose Gold</p>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-ivory mb-4">
+          A little letter <span class="italic text-blush">from my heart.</span>
+        </h2>
+        <p class="text-sm text-champagne/70 max-w-md mx-auto mb-14">
+          Touch the wax crest below to break the seal and unfold your birthday letter.
+        </p>
+
+        <!-- 3D Envelope Stage -->
+        <div class="envelope-stage px-2">
+          <div id="envelope-wrapper" class="envelope-wrapper">
+            <div class="envelope-back"></div>
+            <div class="envelope-pocket-left"></div>
+            <div class="envelope-pocket-right"></div>
+            <div class="envelope-pocket-bottom"></div>
+            <div class="envelope-flap"></div>
+
+            <!-- Interactive Wax Seal -->
+            <button id="wax-seal-btn" type="button" class="wax-seal" aria-label="Open Wax Sealed Love Letter">
+              <span class="font-serif italic text-xl text-ivory tracking-wider drop-shadow">D&bull;18</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Unfolded Calligraphic Letter Card -->
+        <div id="unfolded-letter-card" class="hidden opacity-0 translate-y-8 transition-all duration-700 max-w-2xl mx-auto mt-10 ivory-paper rounded-2xl p-8 sm:p-12 md:p-14 text-left text-burgundy-950 relative">
+          <div class="flex items-center justify-between border-b border-burgundy-900/15 pb-4 mb-7">
+            <span class="text-[11px] uppercase tracking-[0.3em] text-rosegold-dark font-medium">For Dewmi &bull; On Your 18th</span>
+            <div class="flex items-center gap-4">
+              <button id="edit-letter-btn" type="button" class="text-[11px] uppercase tracking-[0.22em] text-burgundy-800/70 hover:text-burgundy-950 underline underline-offset-4 cursor-pointer">
+                Edit Letter
+              </button>
+              <button id="close-letter-btn" type="button" class="text-[11px] uppercase tracking-[0.22em] text-burgundy-800/70 hover:text-burgundy-950 cursor-pointer">
+                Close
+              </button>
+            </div>
+          </div>
+
+          <!-- Read View -->
+          <div id="letter-read-view">
+            <p class="font-script text-4xl sm:text-5xl text-burgundy-800 mb-6">My Dearest Dewmi,</p>
+            <div id="letter-body-lines" class="font-serif text-xl sm:text-2xl leading-relaxed text-burgundy-950/90 space-y-5"></div>
+            <div class="mt-9 pt-6 border-t border-burgundy-900/10 flex items-end justify-between">
+              <div>
+                <p class="font-serif italic text-lg text-burgundy-800">Forever yours,</p>
+                <p class="font-script text-3xl sm:text-4xl text-burgundy-900 mt-1">With all my love &#9825;</p>
+              </div>
+              <span class="text-[10px] uppercase tracking-[0.3em] text-rosegold-dark">Edition XVIII</span>
+            </div>
+          </div>
+
+          <!-- Editable View -->
+          <div id="letter-edit-view" class="hidden space-y-4">
+            <label for="letter-textarea" class="block text-xs uppercase tracking-[0.25em] text-burgundy-800">Personalize Your Letter</label>
+            <textarea id="letter-textarea" rows="7" class="w-full rounded-xl bg-white/80 border border-rosegold/45 p-4 font-serif text-lg text-burgundy-950 focus:outline-none focus:border-rosegold"></textarea>
+            <div class="flex justify-end">
+              <button id="save-letter-btn" type="button" class="px-6 py-2.5 rounded-full bg-burgundy-900 text-ivory text-xs uppercase tracking-[0.22em] cursor-pointer hover:bg-burgundy-800">
+                Save &amp; Seal Words
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ACT V: INTERACTIVE 3D SCULPTURAL BIRTHDAY CAKE & MAKE-A-WISH        -->
+    <!-- =================================================================== -->
+    <section id="cake-section" class="relative min-h-screen flex flex-col justify-between py-24 md:py-32 px-6 md:px-14 pointer-events-none">
+      <div class="max-w-7xl mx-auto w-full flex flex-col items-center text-center pointer-events-auto">
+        <p class="text-xs uppercase tracking-[0.34em] text-rosegold-light mb-3">Chapter IV &bull; The Eighteenth Wish</p>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-ivory">
+          Close Your Eyes &amp; <span class="italic text-blush">Make a Wish</span>
+        </h2>
+        <p class="mt-3 text-sm text-champagne/70 max-w-md">
+          A bespoke sculptural tier crafted in champagne velvet and rose gold, crowned with glowing candles for your 18th year.
+        </p>
+      </div>
+
+      <!-- Transparent Center Window so the 3D Cake in the WebGL Scene is the Star -->
+      <div class="h-[340px] sm:h-[400px] md:h-[440px] w-full pointer-events-none"></div>
+
+      <!-- Interactive Wish Controls & Revealed Blessing -->
+      <div class="max-w-xl mx-auto w-full text-center pointer-events-auto">
+        <div id="wish-controls" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button id="blow-candles-btn" type="button" class="btn-atelier px-8 py-4 rounded-full text-xs sm:text-sm uppercase tracking-[0.26em] text-ivory font-medium cursor-pointer flex items-center gap-3">
+            <svg class="w-4 h-4 text-rosegold-light" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m0-12.728l1.414 1.414m9.9 9.9l1.414 1.414" />
+            </svg>
+            <span>Make a Wish &amp; Blow Candles</span>
+          </button>
+
+          <button id="mic-blow-btn" type="button" class="px-5 py-4 rounded-full luxury-glass text-xs uppercase tracking-[0.2em] text-champagne/80 hover:text-ivory transition-colors cursor-pointer" title="Use your microphone to blow out the candles">
+            Use Mic to Blow
+          </button>
+        </div>
+
+        <p id="mic-status" class="hidden mt-3 text-xs text-rosegold-light tracking-wider animate-pulse">
+          Listening... gently blow toward your microphone!
+        </p>
+
+        <!-- Post-Wish Blessing Card -->
+        <div id="wish-blessing-card" class="hidden opacity-0 translate-y-4 transition-all duration-1000 mt-6 luxury-glass rounded-2xl p-7 sm:p-9 border border-rosegold/35">
+          <p class="text-[11px] uppercase tracking-[0.32em] text-rosegold-light mb-2">Your Wish Has Been Sent to the Stars</p>
+          <h3 class="font-serif italic text-2xl sm:text-3xl text-ivory mb-3">
+            May every dream you whispered tonight bloom into reality, Dewmi.
+          </h3>
+          <p class="text-sm text-champagne/75 leading-relaxed mb-5">
+            Here is to eighteen and every radiant chapter waiting ahead of you.
+          </p>
+          <button id="relight-candles-btn" type="button" class="text-[11px] uppercase tracking-[0.24em] text-rosegold-light hover:text-ivory underline underline-offset-4 cursor-pointer">
+            Relight Candles
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ACT VI: FINAL SURPRISE SCENE — THE ENCHANTED ROSE GARDEN            -->
+    <!-- =================================================================== -->
+    <section id="garden-finale" class="relative min-h-screen flex flex-col items-center justify-center py-28 px-6 md:px-14 text-center pointer-events-none">
+      <div class="max-w-3xl mx-auto luxury-glass rounded-3xl p-8 sm:p-14 md:p-16 border border-rosegold/30 pointer-events-auto relative overflow-hidden">
+        <!-- Subtle Top Radial Glow -->
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-rosegold/20 blur-3xl pointer-events-none"></div>
+
+        <p class="text-xs uppercase tracking-[0.36em] text-rosegold-light mb-5">
+          Finale &bull; The Enchanted Rose Sanctuary
+        </p>
+
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-ivory leading-tight">
+          Happy 18th Birthday,
+          <span class="block italic text-rosegold-gradient mt-2">My Beautiful DEWMI.</span>
+        </h2>
+
+        <div class="w-16 h-px bg-gradient-to-r from-transparent via-rosegold to-transparent mx-auto my-8"></div>
+
+        <p class="font-serif italic text-xl sm:text-2xl md:text-[1.7rem] text-champagne/95 font-light leading-relaxed">
+          “May all your dreams come true. You deserve every beautiful thing in this world.”
+        </p>
+
+        <p class="mt-8 font-script text-4xl sm:text-5xl text-blush">
+          With all my love &#9825;
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <button id="finale-celebrate-btn" type="button" class="btn-atelier px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.25em] text-ivory cursor-pointer">
+            Release Golden Petals
+          </button>
+          <a href="#hero" class="px-6 py-3.5 rounded-full border border-champagne/20 text-xs uppercase tracking-[0.22em] text-champagne/75 hover:text-ivory hover:border-rosegold/50 transition-colors">
+            Replay Journey
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- FLOATING LUXURY AMBIENT AUDIO DOCK                                    -->
+  <!-- ===================================================================== -->
+  <aside id="audio-dock" class="fixed bottom-5 right-5 z-40 opacity-0 translate-y-4 transition-all duration-700">
+    <div class="luxury-glass rounded-full px-4 py-2.5 flex items-center gap-3.5 border border-rosegold/30 shadow-2xl">
+      <button id="audio-toggle-btn" type="button" class="w-9 h-9 rounded-full bg-rosegold/20 border border-rosegold/50 flex items-center justify-center text-ivory hover:bg-rosegold/35 transition-colors cursor-pointer" aria-label="Play or Pause Music">
+        <svg id="icon-play" class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <svg id="icon-pause" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+        </svg>
+      </button>
+
+      <div class="hidden sm:flex flex-col pr-1">
+        <span id="track-title" class="text-xs font-medium text-ivory tracking-wide">Happy Birthday to You</span>
+        <span id="track-subtitle" class="text-[10px] uppercase tracking-[0.22em] text-rosegold-light">Felt Piano &amp; Music Box</span>
+      </div>
+
+      <!-- Animated Equalizer -->
+      <div id="eq-visualizer" class="flex items-end gap-1 h-4 px-1" aria-hidden="true">
+        <span class="eq-bar h-1.5"></span>
+        <span class="eq-bar h-3"></span>
+        <span class="eq-bar h-2"></span>
+        <span class="eq-bar h-2.5"></span>
+      </div>
+
+      <button id="switch-track-btn" type="button" class="px-2.5 py-1 rounded-full border border-rosegold/35 text-[9px] uppercase tracking-[0.2em] text-rosegold-light hover:text-ivory hover:border-rosegold transition-colors cursor-pointer" title="Switch between Happy Birthday & Nocturne">
+        Switch
+      </button>
+
+      <button id="mute-btn" type="button" class="text-champagne/75 hover:text-ivory transition-colors cursor-pointer" aria-label="Mute or Unmute">
+        <svg id="icon-vol" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zm4.54 3.46a5 5 0 010 7.07m2.83-9.9a9 9 0 010 12.73" />
+        </svg>
+        <svg id="icon-mute" class="w-4 h-4 hidden text-dusty" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zm10 4l-6 6m0-6l6 6" />
+        </svg>
+      </button>
+
+      <input id="volume-slider" type="range" min="0" max="1" step="0.02" value="0.65" aria-label="Music Volume" class="hidden md:block w-16 accent-[#D4A373] cursor-pointer" />
+
+      <label class="text-[10px] uppercase tracking-[0.2em] text-champagne/65 hover:text-rosegold-light cursor-pointer pl-1 border-l border-champagne/15" title="Upload your own song (.mp3 / .wav)">
+        Song
+        <input id="custom-audio-input" type="file" accept="audio/*" class="hidden" />
+      </label>
+    </div>
+  </aside>
+
+  <!-- ===================================================================== -->
+  <!-- GOOGLE DRIVE LINK IMPORTER MODAL                                      -->
+  <!-- ===================================================================== -->
+  <div id="gdrive-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-burgundy-950/90 backdrop-blur-xl p-4 sm:p-6">
+    <div class="luxury-glass rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-rosegold/35 relative">
+      <button id="gdrive-modal-close" type="button" class="absolute top-5 right-5 w-9 h-9 rounded-full border border-champagne/20 flex items-center justify-center text-champagne/75 hover:text-ivory cursor-pointer" aria-label="Close Drive Link Importer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <p class="text-[10px] uppercase tracking-[0.3em] text-rosegold-light mb-2">Google Drive Direct Import</p>
+      <h3 class="font-serif italic text-2xl sm:text-3xl text-ivory mb-2">Add Dewmi's Drive Photographs</h3>
+      <p class="text-xs sm:text-sm text-champagne/75 leading-relaxed mb-4">
+        Because Google Drive folder pages cannot be scraped automatically in the browser, open your folder (<span class="text-rosegold-light">1bDyHXaym2jswz6eI1qcNlJB4laMzfbIo</span>), select each public image &rarr; <strong class="text-ivory font-medium">Share &rarr; Copy link</strong>, and paste the links below (one per line).
+      </p>
+
+      <textarea id="gdrive-links-textarea" rows="5" placeholder="https://drive.google.com/file/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/view?usp=sharing&#10;https://drive.google.com/open?id=1XyZ987654321..." class="w-full rounded-xl bg-burgundy-950/90 border border-rosegold/35 p-3.5 text-xs sm:text-sm text-ivory placeholder:text-champagne/35 focus:outline-none focus:border-rosegold leading-relaxed"></textarea>
+
+      <p id="gdrive-feedback" class="hidden text-xs text-rosegold-light mt-2"></p>
+
+      <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <a href="https://drive.google.com/drive/folders/1bDyHXaym2jswz6eI1qcNlJB4laMzfbIo?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-[11px] uppercase tracking-[0.2em] text-champagne/70 hover:text-rosegold-light underline underline-offset-4">
+          Open Your Drive Folder &nearr;
+        </a>
+        <button id="apply-gdrive-links-btn" type="button" class="btn-atelier px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.22em] text-ivory font-medium cursor-pointer">
+          Load Into Gallery
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- FULLSCREEN PHOTO LIGHTBOX MODAL                                       -->
+  <!-- ===================================================================== -->
+  <div id="photo-lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-burgundy-950/95 backdrop-blur-xl p-4 sm:p-10">
+    <button id="lightbox-close" type="button" class="absolute top-6 right-6 w-11 h-11 rounded-full luxury-glass flex items-center justify-center text-ivory hover:text-rosegold-light cursor-pointer" aria-label="Close full-screen photo">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="max-w-4xl w-full flex flex-col items-center text-center">
+      <div class="relative rounded-2xl overflow-hidden border border-rosegold/35 shadow-2xl max-h-[72vh] flex items-center justify-center bg-burgundy-900">
+        <img id="lightbox-img" src="" alt="Dewmi Memory" class="max-h-[72vh] w-auto object-contain" />
+      </div>
+      <p id="lightbox-meta" class="mt-5 text-[11px] uppercase tracking-[0.3em] text-rosegold-light"></p>
+      <h3 id="lightbox-title" class="font-serif italic text-2xl sm:text-3xl text-ivory mt-1"></h3>
+      <p id="lightbox-caption" class="text-sm text-champagne/75 mt-2 max-w-xl"></p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- APPLICATION LOGIC: 3D ENGINE, AUDIO SYNTH, GALLERY, LETTER & CAKE     -->
+  <!-- ===================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ---------------------------------------------------------------------
+      // 1. CENTRALIZED APPLICATION STATE & EDITORIAL DATA
+      // ---------------------------------------------------------------------
+      const AppState = {
+        entered: false,
+        activeAct: 'opening',
+        bloomTarget: 0.48,
+        bloomCurrent: 0.12,
+        candlesLit: true,
+        smokeIntensity: 0,
+        volume: 0.65,
+        isMuted: false,
+        pointer: {
+          x: 0,
+          y: 0,
+          targetX: 0,
+          targetY: 0
+        }
+      };
+
+      const GalleryFrames = [
+        {
+          id: 'frame-1',
+          fileName: '5.jpeg',
+          span: 'md:col-span-7',
+          aspect: 'aspect-[3/4]',
+          objectPosition: 'object-[50%_22%]',
+          roman: 'I',
+          date: 'Chapter One &bull; Side by Side',
+          title: 'Walking Into Eighteen Together',
+          caption: 'Arm in arm, looking toward every bright horizon waiting ahead of us.',
+          imageUrl: 'birthday images/5.jpeg',
+          fallbackUrl: '5.jpeg'
+        },
+        {
+          id: 'frame-2',
+          fileName: '1.jpeg',
+          span: 'md:col-span-5 md:mt-16',
+          aspect: 'aspect-[4/3]',
+          objectPosition: 'object-center',
+          roman: 'II',
+          date: 'Chapter Two &bull; Sunlit Afternoon',
+          title: 'The Warmth of Your Smile',
+          caption: 'Under the shade of summer leaves, your eyes hold all the light in the world.',
+          imageUrl: 'birthday images/1.jpeg',
+          fallbackUrl: '1.jpeg'
+        },
+        {
+          id: 'frame-3',
+          fileName: '3.jpeg',
+          span: 'md:col-span-5',
+          aspect: 'aspect-[3/4]',
+          objectPosition: 'object-[50%_25%]',
+          roman: 'III',
+          date: 'Chapter Three &bull; Effortless Poise',
+          title: 'Grace in White',
+          caption: 'Stepping into your eighteenth year with elegance, sweetness, and quiet magic.',
+          imageUrl: 'birthday images/3.jpeg',
+          fallbackUrl: '3.jpeg'
+        },
+        {
+          id: 'frame-4',
+          fileName: '2.jpeg',
+          span: 'md:col-span-7 md:mt-12',
+          aspect: 'aspect-[4/3]',
+          objectPosition: 'object-center',
+          roman: 'IV',
+          date: 'Chapter Four &bull; Quiet Trails',
+          title: 'Every Path With You',
+          caption: 'Surrounded by emerald woods, every ordinary walk turns into my favorite memory.',
+          imageUrl: 'birthday images/2.jpeg',
+          fallbackUrl: '2.jpeg'
+        },
+        {
+          id: 'frame-5',
+          fileName: '4.jpeg',
+          span: 'md:col-span-6 md:col-start-4 mt-4',
+          aspect: 'aspect-[3/4]',
+          objectPosition: 'object-[50%_20%]',
+          roman: 'V',
+          date: 'Chapter Five &bull; Candid Moments',
+          title: 'Unfiltered & Unforgettable',
+          caption: 'Capturing the effortless charm and beauty that make you one of a kind.',
+          imageUrl: 'birthday images/4.jpeg',
+          fallbackUrl: '4.jpeg'
+        }
+      ];
+
+      const DefaultLetterParagraphs = [
+        'Happy 18th Birthday, my love. Watching you step into this new chapter of your life is one of the greatest privileges of mine.',
+        'You bring a rare warmth, gentleness, and light into this world—the kind that turns ordinary days into memories I want to keep forever.',
+        'As you turn eighteen today, I hope you always remember how deeply cherished, admired, and loved you are. May every dream you carry in your heart bloom into something extraordinary.'
+      ];
+
+      // ---------------------------------------------------------------------
+      // 2. ROMANTIC AMBIENT AUDIO ENGINE (Happy Birthday + Nocturne + Custom)
+      // ---------------------------------------------------------------------
+      class RomanticAudioEngine {
+        constructor() {
+          this.ctx = null;
+          this.masterGain = null;
+          this.delayNode = null;
+          this.feedbackGain = null;
+          this.isPlaying = false;
+          this.intervalId = null;
+          this.scheduledTimers = [];
+          this.step = 0;
+          this.trackMode = 'birthday'; // 'birthday' | 'nocturne' | 'custom'
+          this.customAudioEl = new Audio();
+          this.customAudioEl.loop = true;
+
+          // Lush romantic progression in D Major / B Minor (Nocturne Waltz)
+          this.chords = [
+            [293.66, 369.99, 440.00, 554.37], // Dmaj7
+            [246.94, 369.99, 440.00, 587.33], // Bm7
+            [196.00, 293.66, 369.99, 440.00], // Gmaj7
+            [220.00, 329.63, 440.00, 554.37]  // A6
+          ];
+
+          // Complete Expressive "Happy Birthday to You" in warm F Major
+          // Notes: [melodyFreq, durationBeats, harmonyChordFreqsOrNull]
+          // Tempo ~84 BPM (1 beat = 0.71s) with gentle rubato on "Dear Dew-mi"
+          this.birthdayScore = [
+            // Phrase 1: "Hap-py Birth-day to you" (C4 C4 | D4 C4 F4 | E4)
+            { f: 261.63, b: 0.65, c: null },
+            { f: 261.63, b: 0.45, c: null },
+            { f: 293.66, b: 1.05, c: [174.61, 261.63, 329.63, 440.00] }, // Fmaj7
+            { f: 261.63, b: 1.00, c: null },
+            { f: 349.23, b: 1.05, c: [174.61, 220.00, 261.63] },
+            { f: 329.63, b: 2.15, c: [130.81, 196.00, 233.08, 293.66] }, // C9
+
+            // Phrase 2: "Hap-py Birth-day to you" (C4 C4 | D4 C4 G4 | F4)
+            { f: 261.63, b: 0.65, c: null },
+            { f: 261.63, b: 0.45, c: null },
+            { f: 293.66, b: 1.05, c: [130.81, 196.00, 233.08, 261.63] }, // C7
+            { f: 261.63, b: 1.00, c: null },
+            { f: 392.00, b: 1.05, c: [196.00, 233.08, 293.66] },
+            { f: 349.23, b: 2.20, c: [174.61, 220.00, 261.63, 329.63] }, // Fmaj7
+
+            // Phrase 3: "Hap-py Birth-day dear DEW-MI" (C4 C4 | C5 A4 F4 | E4 D4)
+            { f: 261.63, b: 0.65, c: null },
+            { f: 261.63, b: 0.45, c: null },
+            { f: 523.25, b: 1.15, c: [174.61, 220.00, 261.63, 349.23] }, // Fmaj
+            { f: 440.00, b: 1.05, c: null },
+            { f: 349.23, b: 1.10, c: [233.08, 293.66, 349.23, 440.00] }, // Bbmaj7
+            { f: 329.63, b: 1.15, c: [196.00, 293.66, 349.23] },
+            { f: 293.66, b: 2.25, c: [233.08, 293.66, 349.23, 440.00] }, // Bbmaj7 hold
+
+            // Phrase 4: "Hap-py Birth-day to you" (Bb4 Bb4 | A4 F4 G4 | F4)
+            { f: 466.16, b: 0.65, c: null },
+            { f: 466.16, b: 0.45, c: null },
+            { f: 440.00, b: 1.10, c: [174.61, 261.63, 349.23] },         // F/C
+            { f: 349.23, b: 1.05, c: null },
+            { f: 392.00, b: 1.15, c: [130.81, 196.00, 233.08, 329.63] }, // C7
+            { f: 349.23, b: 3.10, c: [174.61, 220.00, 261.63, 329.63, 440.00] } // Lush Fmaj9 finale
+          ];
+        }
+
+        initContext() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AudioCtx();
+            this.masterGain = this.ctx.createGain();
+            this.masterGain.gain.value = AppState.isMuted ? 0 : AppState.volume * 0.52;
+
+            // Warm Concert-Hall Stereo Echo / Reverb Tail
+            this.delayNode = this.ctx.createDelay(1.0);
+            this.delayNode.delayTime.value = 0.34;
+            this.feedbackGain = this.ctx.createGain();
+            this.feedbackGain.gain.value = 0.28;
+            const wetFilter = this.ctx.createBiquadFilter();
+            wetFilter.type = 'lowpass';
+            wetFilter.frequency.value = 1450;
+
+            this.delayNode.connect(wetFilter);
+            wetFilter.connect(this.feedbackGain);
+            this.feedbackGain.connect(this.delayNode);
+            wetFilter.connect(this.masterGain);
+
+            this.masterGain.connect(this.ctx.destination);
+          }
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+
+        clearScheduledAudio() {
+          if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+          }
+          this.scheduledTimers.forEach((id) => clearTimeout(id));
+          this.scheduledTimers = [];
+        }
+
+        // Expressive Felt-Piano + Music-Box Bell Voice
+        playMusicBoxMelodyNote(freq, duration = 1.4, delay = 0, gainAmount = 0.13) {
+          if (!this.ctx || this.trackMode === 'custom') return;
+          const now = this.ctx.currentTime + delay;
+
+          // 1. Warm Felt Piano Fundamental
+          const pianoOsc = this.ctx.createOscillator();
+          pianoOsc.type = 'triangle';
+          pianoOsc.frequency.setValueAtTime(freq, now);
+
+          // 2. Soft Sine Body
+          const bodyOsc = this.ctx.createOscillator();
+          bodyOsc.type = 'sine';
+          bodyOsc.frequency.setValueAtTime(freq, now);
+
+          // 3. Delicate Music-Box Octave Shimmer
+          const bellOsc = this.ctx.createOscillator();
+          bellOsc.type = 'sine';
+          bellOsc.frequency.setValueAtTime(freq * 2, now);
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(1850, now);
+          filter.frequency.exponentialRampToValueAtTime(680, now + duration);
+
+          const noteGain = this.ctx.createGain();
+          noteGain.gain.setValueAtTime(0.0001, now);
+          noteGain.gain.linearRampToValueAtTime(gainAmount, now + 0.035);
+          noteGain.gain.exponentialRampToValueAtTime(gainAmount * 0.42, now + 0.35);
+          noteGain.gain.exponentialRampToValueAtTime(0.0001, now + duration + 0.45);
+
+          const bellGain = this.ctx.createGain();
+          bellGain.gain.setValueAtTime(0.0001, now);
+          bellGain.gain.linearRampToValueAtTime(gainAmount * 0.24, now + 0.015);
+          bellGain.gain.exponentialRampToValueAtTime(0.0001, now + Math.min(0.85, duration * 0.7));
+
+          pianoOsc.connect(filter);
+          bodyOsc.connect(filter);
+          filter.connect(noteGain);
+
+          bellOsc.connect(bellGain);
+          bellGain.connect(noteGain);
+
+          noteGain.connect(this.masterGain);
+          if (this.delayNode) noteGain.connect(this.delayNode);
+
+          pianoOsc.start(now);
+          bodyOsc.start(now);
+          bellOsc.start(now);
+
+          const stopTime = now + duration + 0.55;
+          pianoOsc.stop(stopTime);
+          bodyOsc.stop(stopTime);
+          bellOsc.stop(stopTime);
+        }
+
+        // Soft Warm Accompaniment Pad Note
+        playSoftNote(freq, duration = 3.4, delay = 0, gainAmount = 0.065) {
+          if (!this.ctx || this.trackMode === 'custom') return;
+          const now = this.ctx.currentTime + delay;
+
+          const osc = this.ctx.createOscillator();
+          const subOsc = this.ctx.createOscillator();
+          const noteGain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+
+          subOsc.type = 'triangle';
+          subOsc.frequency.setValueAtTime(freq * 0.5, now);
+
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(860, now);
+
+          noteGain.gain.setValueAtTime(0.0001, now);
+          noteGain.gain.exponentialRampToValueAtTime(gainAmount, now + 0.32);
+          noteGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          osc.connect(filter);
+          subOsc.connect(filter);
+          filter.connect(noteGain);
+          noteGain.connect(this.masterGain);
+
+          osc.start(now);
+          subOsc.start(now);
+          osc.stop(now + duration + 0.1);
+          subOsc.stop(now + duration + 0.1);
+        }
+
+        // Celebratory Sparkling Birthday Chime Flourish (for Cake Wish)
+        playBirthdayChimeFlourish() {
+          this.initContext();
+          const notes = [349.23, 440.00, 523.25, 659.25, 698.46, 880.00]; // Fmaj9 arpeggio
+          notes.forEach((freq, idx) => {
+            this.playMusicBoxMelodyNote(freq, 2.2, idx * 0.14, 0.11);
+          });
+        }
+
+        scheduleBirthdaySongVerse() {
+          if (!this.isPlaying || this.trackMode !== 'birthday') return;
+          const beatSec = 0.68;
+          let cursorSec = 0.1;
+
+          this.birthdayScore.forEach((step) => {
+            const durSec = step.b * beatSec;
+            this.playMusicBoxMelodyNote(step.f, durSec * 1.15, cursorSec, 0.145);
+
+            if (step.c) {
+              step.c.forEach((chordFreq, cIdx) => {
+                this.playSoftNote(chordFreq, durSec * 2.1, cursorSec + cIdx * 0.04, 0.048);
+              });
+            }
+            cursorSec += durSec;
+          });
+
+          // Loop gracefully after a gentle 2.2s breath at the end of the verse
+          const totalVerseMs = (cursorSec + 2.2) * 1000;
+          const loopTimer = setTimeout(() => {
+            if (this.isPlaying && this.trackMode === 'birthday') {
+              this.scheduleBirthdaySongVerse();
+            }
+          }, totalVerseMs);
+          this.scheduledTimers.push(loopTimer);
+        }
+
+        start() {
+          if (this.trackMode === 'custom') {
+            this.customAudioEl.volume = AppState.isMuted ? 0 : AppState.volume;
+            this.customAudioEl.play().catch(() => {});
+            this.isPlaying = true;
+            this.syncUI();
+            return;
+          }
+
+          this.initContext();
+          if (this.isPlaying) return;
+          this.isPlaying = true;
+          this.clearScheduledAudio();
+
+          if (this.trackMode === 'birthday') {
+            this.scheduleBirthdaySongVerse();
+          } else {
+            const triggerBar = () => {
+              if (!this.isPlaying || this.trackMode !== 'nocturne') return;
+              const chord = this.chords[this.step % this.chords.length];
+              chord.forEach((freq, idx) => {
+                this.playSoftNote(freq, 4.2, idx * 0.55, 0.065);
+              });
+              const topNote = chord[chord.length - 1] * 2;
+              this.playSoftNote(topNote, 3.0, 2.2, 0.025);
+              this.step++;
+            };
+            triggerBar();
+            this.intervalId = setInterval(triggerBar, 3800);
+          }
+
+          this.syncUI();
+        }
+
+        pause() {
+          this.isPlaying = false;
+          this.clearScheduledAudio();
+          if (this.trackMode === 'custom') {
+            this.customAudioEl.pause();
+          }
+          this.syncUI();
+        }
+
+        toggle() {
+          if (this.isPlaying) this.pause();
+          else this.start();
+        }
+
+        switchBuiltInTrack() {
+          const wasPlaying = this.isPlaying;
+          this.pause();
+          if (this.trackMode === 'birthday') {
+            this.trackMode = 'nocturne';
+            document.getElementById('track-title').textContent = 'Nocturne for Dewmi';
+            document.getElementById('track-subtitle').textContent = 'Ambient Piano Waltz';
+          } else {
+            this.trackMode = 'birthday';
+            document.getElementById('track-title').textContent = 'Happy Birthday to You';
+            document.getElementById('track-subtitle').textContent = 'Felt Piano & Music Box';
+          }
+          if (wasPlaying) this.start();
+          else this.syncUI();
+        }
+
+        setVolume(val) {
+          AppState.volume = val;
+          AppState.isMuted = val <= 0.01;
+          if (this.masterGain && this.ctx) {
+            this.masterGain.gain.setTargetAtTime(AppState.isMuted ? 0 : val * 0.52, this.ctx.currentTime, 0.08);
+          }
+          this.customAudioEl.volume = AppState.isMuted ? 0 : val;
+          this.syncUI();
+        }
+
+        toggleMute() {
+          AppState.isMuted = !AppState.isMuted;
+          if (this.masterGain && this.ctx) {
+            this.masterGain.gain.setTargetAtTime(AppState.isMuted ? 0 : AppState.volume * 0.52, this.ctx.currentTime, 0.08);
+          }
+          this.customAudioEl.volume = AppState.isMuted ? 0 : AppState.volume;
+          this.syncUI();
+        }
+
+        loadLocalFile(file) {
+          if (!file) return;
+          const url = URL.createObjectURL(file);
+          this.clearScheduledAudio();
+          this.trackMode = 'custom';
+          this.customAudioEl.src = url;
+          this.customAudioEl.volume = AppState.isMuted ? 0 : AppState.volume;
+          this.customAudioEl.play().then(() => {
+            this.isPlaying = true;
+            document.getElementById('track-title').textContent = file.name.replace(/\.[^/.]+$/, '');
+            document.getElementById('track-subtitle').textContent = 'Personal Track';
+            this.syncUI();
+          }).catch(() => {});
+        }
+
+        syncUI() {
+          const playIcon = document.getElementById('icon-play');
+          const pauseIcon = document.getElementById('icon-pause');
+          const eq = document.getElementById('eq-visualizer');
+          const volIcon = document.getElementById('icon-vol');
+          const muteIcon = document.getElementById('icon-mute');
+
+          if (this.isPlaying) {
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+            eq.classList.add('eq-playing');
+          } else {
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+            eq.classList.remove('eq-playing');
+          }
+
+          if (AppState.isMuted) {
+            volIcon.classList.add('hidden');
+            muteIcon.classList.remove('hidden');
+          } else {
+            volIcon.classList.remove('hidden');
+            muteIcon.classList.add('hidden');
+          }
+        }
+      }
+
+      const audioEngine = new RomanticAudioEngine();
+
+      // ---------------------------------------------------------------------
+      // 3. THREE.JS PROCEDURAL 3D ARTISTRY (Rose, Petals, Cake & Rose Garden)
+      // ---------------------------------------------------------------------
+      let scene, camera, renderer, clock;
+      let heroRoseGroup, rosePetalsData = [];
+      let fallingPetalsMesh, petalDummy = new THREE.Object3D(), fallingPetalsState = [];
+      let dustParticles, dustPositions;
+      let cakeGroup, candleFlames = [], candleLights = [], smokeParticles = [];
+      let gardenGroup, gardenRoses = [];
+      let rimLight, keyLight, warmCoreLight;
+      let webglReady = false;
+
+      // Custom GLSL Velvet Subsurface & Rim-Light Shader Material for Rose Petals
+      function createVelvetPetalMaterial(baseHex, tipHex, rimHex) {
+        return new THREE.ShaderMaterial({
+          uniforms: {
+            uBaseColor: { value: new THREE.Color(baseHex) },
+            uTipColor: { value: new THREE.Color(tipHex) },
+            uRimColor: { value: new THREE.Color(rimHex) },
+            uLightDir: { value: new THREE.Vector3(0.5, 0.8, 0.6).normalize() },
+            uTime: { value: 0 }
+          },
+          vertexShader: `
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            varying vec2 vUv;
+            uniform float uTime;
+
+            void main() {
+              vUv = uv;
+              vec3 pos = position;
+              // Gentle organic breathing flutter at petal edges
+              float edgeFactor = smoothstep(0.3, 1.0, uv.y);
+              pos.z += sin(uTime * 1.4 + uv.x * 5.0 + uv.y * 3.0) * 0.015 * edgeFactor;
+
+              vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+              vViewPosition = -mvPosition.xyz;
+              vNormal = normalMatrix * normal;
+              gl_Position = projectionMatrix * mvPosition;
+            }
+          `,
+          fragmentShader: `
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            varying vec2 vUv;
+            uniform vec3 uBaseColor;
+            uniform vec3 uTipColor;
+            uniform vec3 uRimColor;
+            uniform vec3 uLightDir;
+
+            void main() {
+              vec3 normal = normalize(vNormal);
+              if (!gl_FrontFacing) normal = -normal;
+              vec3 viewDir = normalize(vViewPosition);
+
+              // Gradient from deep velvet burgundy core to dusty rose / champagne tip
+              vec3 albedo = mix(uBaseColor, uTipColor, smoothstep(0.08, 0.96, vUv.y));
+
+              // Soft wrapped diffuse lighting for silky subsurface scattering illusion
+              float NdotL = dot(normal, uLightDir);
+              float wrapDiffuse = max(0.0, (NdotL + 0.55) / 1.55);
+
+              // Velvet Fresnel rim sheen
+              float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 2.6);
+
+              // Subtle golden edge highlight at the very lip of the petal
+              float lipGold = smoothstep(0.88, 1.0, vUv.y) * 0.35;
+
+              vec3 color = albedo * (0.38 + wrapDiffuse * 0.72);
+              color += uRimColor * fresnel * 0.58;
+              color += vec3(0.95, 0.80, 0.62) * lipGold * (0.4 + fresnel);
+
+              gl_FragColor = vec4(color, 1.0);
+            }
+          `,
+          side: THREE.DoubleSide
+        });
+      }
+
+      // Parametric Sculpted Rose Petal Geometry
+      function createSculptedPetalGeometry() {
+        const segX = 16;
+        const segY = 20;
+        const geo = new THREE.PlaneGeometry(1, 1.25, segX, segY);
+        const pos = geo.attributes.position;
+
+        for (let i = 0; i < pos.count; i++) {
+          const u = pos.getX(i) + 0.5; // 0..1 across width
+          const v = (pos.getY(i) + 0.625) / 1.25; // 0..1 from base to tip
+
+          // Heart-like botanical petal silhouette (narrow base, full rounded upper lobe)
+          const widthProfile = Math.sin(Math.pow(v, 0.72) * Math.PI) * (0.75 + 0.38 * v);
+          const x = (u - 0.5) * widthProfile * 1.35;
+          const y = v * 1.32;
+
+          // Cupped inward curvature + delicate outward lip curl at top
+          const cup = -Math.cos((u - 0.5) * Math.PI) * Math.sin(v * Math.PI) * 0.28;
+          const lipCurl = Math.pow(Math.max(0, v - 0.62) / 0.38, 2.0) * 0.24 * (1.0 - Math.abs(u - 0.5) * 0.8);
+          const z = cup + lipCurl;
+
+          pos.setXYZ(i, x, y, z);
+        }
+
+        geo.computeVertexNormals();
+        return geo;
+      }
+
+      // Assemble a Multi-Layered Botanical 3D Rose
+      function buildProceduralRose(petalGeo, petalMat, scale = 1.0, storePetals = false) {
+        const rose = new THREE.Group();
+        rose.scale.setScalar(scale);
+
+        // Golden stamen heart inside center
+        const coreGeo = new THREE.SphereGeometry(0.14, 16, 16);
+        const coreMat = new THREE.MeshStandardMaterial({
+          color: 0xD4A373,
+          emissive: 0x6B3A1E,
+          emissiveIntensity: 0.45,
+          roughness: 0.35,
+          metalness: 0.6
+        });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        core.position.y = 0.35;
+        rose.add(core);
+
+        // Fibonacci Golden-Angle Spiral Layers (26 layered petals)
+        const totalPetals = 26;
+        const goldenAngle = 2.39996323;
+        const localPetals = [];
+
+        for (let i = 0; i < totalPetals; i++) {
+          const t = i / (totalPetals - 1); // 0 (inner bud) -> 1 (outer bloom)
+          const pivot = new THREE.Group();
+          const mesh = new THREE.Mesh(petalGeo, petalMat);
+
+          const petalScale = 0.42 + t * 0.78;
+          mesh.scale.set(petalScale * (0.95 + Math.sin(i) * 0.08), petalScale, petalScale);
+          mesh.position.y = 0.05;
+
+          const angle = i * goldenAngle;
+          const radius = 0.04 + t * 0.28;
+          pivot.position.set(
+            Math.cos(angle) * radius,
+            0.18 - t * 0.14,
+            Math.sin(angle) * radius
+          );
+          pivot.rotation.y = -angle + Math.PI * 0.5;
+
+          // Closed vs Open tilt angles
+          const closedTilt = 0.14 + t * 0.32;
+          const openTilt = 0.24 + Math.pow(t, 0.88) * 1.18;
+          pivot.rotation.x = closedTilt;
+
+          pivot.add(mesh);
+          rose.add(pivot);
+
+          if (storePetals) {
+            localPetals.push({ pivot, closedTilt, openTilt, layerT: t, index: i });
+          }
+        }
+
+        // Elegant Stem & Sepals
+        const stemCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0, 0.05, 0),
+          new THREE.Vector3(0.04, -0.9, 0.03),
+          new THREE.Vector3(-0.03, -2.0, -0.02),
+          new THREE.Vector3(0.02, -3.2, 0)
+        ]);
+        const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.045, 8, false);
+        const stemMat = new THREE.MeshStandardMaterial({
+          color: 0x243322,
+          roughness: 0.65,
+          metalness: 0.15
+        });
+        const stem = new THREE.Mesh(stemGeo, stemMat);
+        rose.add(stem);
+
+        // Rose-gold gilded sepal leaves under bloom
+        const sepalMat = new THREE.MeshStandardMaterial({
+          color: 0x3A4730,
+          emissive: 0x2A1A10,
+          emissiveIntensity: 0.2,
+          roughness: 0.5,
+          metalness: 0.35,
+          side: THREE.DoubleSide
+        });
+        for (let s = 0; s < 5; s++) {
+          const sepal = new THREE.Mesh(petalGeo, sepalMat);
+          sepal.scale.set(0.28, 0.45, 0.28);
+          const a = (s / 5) * Math.PI * 2;
+          sepal.position.set(Math.cos(a) * 0.12, 0.02, Math.sin(a) * 0.12);
+          sepal.rotation.y = -a + Math.PI * 0.5;
+          sepal.rotation.x = 1.95;
+          rose.add(sepal);
+        }
+
+        if (storePetals) {
+          rosePetalsData = localPetals;
+        }
+        return rose;
+      }
+
+      // Build Multi-Tiered Artisanal 3D Birthday Cake
+      function buildSculpturalCake(petalGeo, petalMat) {
+        const group = new THREE.Group();
+
+        const champagneFondant = new THREE.MeshStandardMaterial({
+          color: 0xF3E5D8,
+          roughness: 0.42,
+          metalness: 0.08
+        });
+
+        const dustyRoseFondant = new THREE.MeshStandardMaterial({
+          color: 0xC98A95,
+          roughness: 0.48,
+          metalness: 0.1
+        });
+
+        const roseGoldLeaf = new THREE.MeshStandardMaterial({
+          color: 0xE2B180,
+          emissive: 0x4A2B12,
+          emissiveIntensity: 0.25,
+          roughness: 0.22,
+          metalness: 0.88
+        });
+
+        // Pedestal Stand
+        const standTop = new THREE.Mesh(new THREE.CylinderGeometry(2.15, 2.05, 0.14, 48), roseGoldLeaf);
+        standTop.position.y = -1.35;
+        group.add(standTop);
+
+        const standStem = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.58, 0.85, 32), roseGoldLeaf);
+        standStem.position.y = -1.82;
+        group.add(standStem);
+
+        // Bottom Tier (Champagne Velvet)
+        const tier1 = new THREE.Mesh(new THREE.CylinderGeometry(1.65, 1.68, 1.05, 48), champagneFondant);
+        tier1.position.y = -0.75;
+        group.add(tier1);
+
+        // Gold Ribbon Trim on Tier 1
+        const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.67, 0.035, 16, 64), roseGoldLeaf);
+        ring1.rotation.x = Math.PI * 0.5;
+        ring1.position.y = -1.24;
+        group.add(ring1);
+
+        // Middle Tier (Dusty Rose)
+        const tier2 = new THREE.Mesh(new THREE.CylinderGeometry(1.18, 1.2, 0.92, 48), dustyRoseFondant);
+        tier2.position.y = 0.22;
+        group.add(tier2);
+
+        const ring2 = new THREE.Mesh(new THREE.TorusGeometry(1.19, 0.03, 16, 64), roseGoldLeaf);
+        ring2.rotation.x = Math.PI * 0.5;
+        ring2.position.y = -0.22;
+        group.add(ring2);
+
+        // Top Tier (Warm Ivory)
+        const tier3 = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.78, 0.78, 48), champagneFondant);
+        tier3.position.y = 1.06;
+        group.add(tier3);
+
+        const ring3 = new THREE.Mesh(new THREE.TorusGeometry(0.77, 0.025, 16, 64), roseGoldLeaf);
+        ring3.rotation.x = Math.PI * 0.5;
+        ring3.position.y = 0.69;
+        group.add(ring3);
+
+        // Miniature Roses Encircling the Tiers
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2;
+          const miniRose = buildProceduralRose(petalGeo, petalMat, 0.22, false);
+          // Remove stem from mini cake roses
+          miniRose.children.forEach((child) => {
+            if (child.geometry && child.geometry.type === 'TubeGeometry') child.visible = false;
+          });
+          miniRose.position.set(Math.cos(angle) * 1.26, -0.22, Math.sin(angle) * 1.26);
+          miniRose.rotation.z = -Math.cos(angle) * 0.35;
+          miniRose.rotation.x = Math.sin(angle) * 0.35;
+          group.add(miniRose);
+        }
+
+        // Tapered Rose-Gold Candles on Crown (5 candles symbolizing light & wishes)
+        const candleOffsets = [
+          [0, 0],
+          [-0.34, 0.22],
+          [0.34, 0.22],
+          [-0.24, -0.3],
+          [0.24, -0.3]
+        ];
+
+        const candleBodyMat = new THREE.MeshStandardMaterial({
+          color: 0xFAF6F0,
+          roughness: 0.3,
+          metalness: 0.15
+        });
+
+        const flameMat = new THREE.MeshBasicMaterial({
+          color: 0xFFD98E
+        });
+
+        candleOffsets.forEach(([cx, cz], idx) => {
+          const h = idx === 0 ? 0.68 : 0.54;
+          const baseY = 1.45;
+          const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.036, h, 16), candleBodyMat);
+          stick.position.set(cx, baseY + h * 0.5, cz);
+          group.add(stick);
+
+          // Teardrop Glowing Flame
+          const flameGeo = new THREE.ConeGeometry(0.055, 0.19, 16);
+          const flame = new THREE.Mesh(flameGeo, flameMat);
+          flame.position.set(cx, baseY + h + 0.11, cz);
+          flame.userData = { baseY: baseY + h + 0.11, phase: idx * 1.3 };
+          group.add(flame);
+          candleFlames.push(flame);
+
+          if (idx < 2) {
+            const pLight = new THREE.PointLight(0xFFBE6B, 1.35, 5.5);
+            pLight.position.set(cx, baseY + h + 0.22, cz);
+            group.add(pLight);
+            candleLights.push(pLight);
+          }
+        });
+
+        // Smoke Wisps (visible when candles are blown out)
+        const smokeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+        for (let s = 0; s < 18; s++) {
+          const sMat = new THREE.MeshBasicMaterial({
+            color: 0xE8DCD2,
+            transparent: true,
+            opacity: 0
+          });
+          const sMesh = new THREE.Mesh(smokeGeo, sMat);
+          const origin = candleOffsets[s % candleOffsets.length];
+          sMesh.userData = {
+            ox: origin[0],
+            oz: origin[1],
+            oy: 2.1,
+            offset: (s / 18) * Math.PI * 2,
+            speed: 0.6 + (s % 4) * 0.18
+          };
+          group.add(sMesh);
+          smokeParticles.push(sMesh);
+        }
+
+        group.visible = false;
+        return group;
+      }
+
+      // Build Enchanted Twilight Rose Garden for Act VI
+      function buildEnchantedGarden(petalGeo, petalMat) {
+        const group = new THREE.Group();
+        const positions = [
+          [-2.6, -1.1, -1.2, 0.72],
+          [2.7, -1.0, -1.4, 0.78],
+          [-1.5, -1.35, 0.9, 0.56],
+          [1.65, -1.3, 0.85, 0.6],
+          [-3.8, -0.7, -2.8, 0.95],
+          [3.9, -0.65, -2.6, 0.92],
+          [0.0, -1.45, 1.35, 0.52]
+        ];
+
+        positions.forEach(([x, y, z, sc], idx) => {
+          const r = buildProceduralRose(petalGeo, petalMat, sc, false);
+          r.position.set(x, y, z);
+          r.rotation.y = idx * 1.1;
+          r.rotation.z = (idx % 2 === 0 ? 1 : -1) * 0.08;
+          // Open garden roses fully
+          r.children.forEach((child) => {
+            if (child.type === 'Group') {
+              child.rotation.x = 0.85;
+            }
+          });
+          group.add(r);
+          gardenRoses.push(r);
+        });
+
+        group.visible = false;
+        return group;
+      }
+
+      function initWebGL() {
+        const canvas = document.getElementById('webgl-stage');
+        try {
+          renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance'
+          });
+        } catch (err) {
+          document.getElementById('webgl-fallback').classList.remove('hidden');
+          return;
+        }
+
+        if (!renderer || !renderer.getContext()) {
+          document.getElementById('webgl-fallback').classList.remove('hidden');
+          return;
+        }
+
+        webglReady = true;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
+
+        scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x1C0A10, 0.055);
+
+        camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0.6, 5.4);
+
+        clock = new THREE.Clock();
+
+        // Cinematic Lighting Rig (Burgundy Velvet + Warm Champagne + Rose Gold Rim)
+        const ambientLight = new THREE.AmbientLight(0x4A1D2B, 1.15);
+        scene.add(ambientLight);
+
+        keyLight = new THREE.SpotLight(0xFFE8D6, 2.6, 25, Math.PI * 0.28, 0.65, 1.2);
+        keyLight.position.set(3.5, 5.5, 4.8);
+        scene.add(keyLight);
+
+        rimLight = new THREE.DirectionalLight(0xE8B48A, 1.85);
+        rimLight.position.set(-4.2, 3.2, -3.5);
+        scene.add(rimLight);
+
+        warmCoreLight = new THREE.PointLight(0xD48A96, 1.4, 9);
+        warmCoreLight.position.set(0, 1.2, 1.8);
+        scene.add(warmCoreLight);
+
+        // Create Shared Sculpted Petal Geometry & Velvet Shader Material
+        const petalGeo = createSculptedPetalGeometry();
+        const heroPetalMat = createVelvetPetalMaterial('#380B18', '#D18794', '#F3D2B3');
+
+        // 1. Hero Sculptural Rose
+        heroRoseGroup = buildProceduralRose(petalGeo, heroPetalMat, 1.18, true);
+        heroRoseGroup.position.set(0, -0.15, 0);
+        scene.add(heroRoseGroup);
+
+        // 2. Instanced Falling & Drifting 3D Rose Petals (110 petals with physics)
+        const petalCount = window.innerWidth < 768 ? 65 : 115;
+        const instMat = new THREE.MeshStandardMaterial({
+          color: 0xC97A88,
+          emissive: 0x360C16,
+          emissiveIntensity: 0.35,
+          roughness: 0.45,
+          metalness: 0.15,
+          side: THREE.DoubleSide
+        });
+        fallingPetalsMesh = new THREE.InstancedMesh(petalGeo, instMat, petalCount);
+
+        for (let i = 0; i < petalCount; i++) {
+          fallingPetalsState.push({
+            x: (Math.random() - 0.5) * 14,
+            y: (Math.random() - 0.5) * 12,
+            z: (Math.random() - 0.5) * 8 - 1,
+            rx: Math.random() * Math.PI * 2,
+            ry: Math.random() * Math.PI * 2,
+            rz: Math.random() * Math.PI * 2,
+            speedY: 0.008 + Math.random() * 0.014,
+            swayFreq: 0.6 + Math.random() * 1.1,
+            swayAmp: 0.01 + Math.random() * 0.02,
+            rotSpeed: (Math.random() - 0.5) * 0.025,
+            scale: 0.16 + Math.random() * 0.18,
+            burstVx: 0,
+            burstVy: 0
+          });
+        }
+        scene.add(fallingPetalsMesh);
+
+        // 3. Atmospheric Golden Champagne Dust Particles
+        const dustCount = window.innerWidth < 768 ? 140 : 260;
+        const dustGeo = new THREE.BufferGeometry();
+        dustPositions = new Float32Array(dustCount * 3);
+        for (let i = 0; i < dustCount; i++) {
+          dustPositions[i * 3] = (Math.random() - 0.5) * 15;
+          dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 12;
+          dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 9;
+        }
+        dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+        const dustMat = new THREE.PointsMaterial({
+          color: 0xF3D7B6,
+          size: 0.042,
+          transparent: true,
+          opacity: 0.72,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        });
+        dustParticles = new THREE.Points(dustGeo, dustMat);
+        scene.add(dustParticles);
+
+        // 4. Sculptural 3D Birthday Cake (for Act V)
+        cakeGroup = buildSculpturalCake(petalGeo, heroPetalMat);
+        cakeGroup.position.set(0, -0.35, 0);
+        scene.add(cakeGroup);
+
+        // 5. Enchanted Rose Garden Sanctuary (for Act VI)
+        gardenGroup = buildEnchantedGarden(petalGeo, heroPetalMat);
+        scene.add(gardenGroup);
+
+        // Resize Listener
+        window.addEventListener('resize', onWindowResize, { passive: true });
+      }
+
+      function onWindowResize() {
+        if (!webglReady) return;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      // Burst of Petals on Interactive Click
+      function triggerPetalBurst(amount = 28) {
+        if (!webglReady) return;
+        let triggered = 0;
+        for (let i = 0; i < fallingPetalsState.length && triggered < amount; i++) {
+          const p = fallingPetalsState[i];
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 0.04 + Math.random() * 0.065;
+          p.x = (Math.random() - 0.5) * 1.4;
+          p.y = 0.2 + (Math.random() - 0.5) * 0.8;
+          p.z = 0.4 + Math.random() * 0.8;
+          p.burstVx = Math.cos(angle) * speed;
+          p.burstVy = Math.abs(Math.sin(angle)) * speed + 0.025;
+          triggered++;
+        }
+        // Pulse bloom
+        AppState.bloomTarget = 0.96;
+        setTimeout(() => {
+          if (AppState.entered) AppState.bloomTarget = 0.72;
+        }, 1200);
+      }
+
+      // Main 60fps Render Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!webglReady) return;
+
+        const elapsed = clock.getElapsedTime();
+
+        // Smooth pointer parallax
+        AppState.pointer.x += (AppState.pointer.targetX - AppState.pointer.x) * 0.05;
+        AppState.pointer.y += (AppState.pointer.targetY - AppState.pointer.y) * 0.05;
+
+        // Smooth rose blooming interpolation
+        AppState.bloomCurrent += (AppState.bloomTarget - AppState.bloomCurrent) * 0.035;
+
+        // Update Hero Rose
+        if (heroRoseGroup && heroRoseGroup.visible) {
+          heroRoseGroup.children.forEach((child) => {
+            if (child.material && child.material.uniforms && child.material.uniforms.uTime) {
+              child.material.uniforms.uTime.value = elapsed;
+            }
+          });
+
+          rosePetalsData.forEach((item) => {
+            const wave = Math.sin(elapsed * 1.1 + item.index * 0.25) * 0.025;
+            item.pivot.rotation.x = THREE.MathUtils.lerp(item.closedTilt, item.openTilt, AppState.bloomCurrent) + wave;
+          });
+
+          // Gentle floating & pointer orientation
+          heroRoseGroup.rotation.y = elapsed * 0.16 + AppState.pointer.x * 0.45;
+          heroRoseGroup.rotation.x = 0.22 + AppState.pointer.y * 0.22;
+          heroRoseGroup.position.y = -0.15 + Math.sin(elapsed * 0.9) * 0.06;
+
+          // Responsive horizontal placement on desktop hero so rose sits gracefully beside editorial copy
+          const isDesktop = window.innerWidth >= 1024;
+          const targetX = AppState.entered && AppState.activeAct === 'hero' && isDesktop ? 1.45 : 0;
+          heroRoseGroup.position.x += (targetX - heroRoseGroup.position.x) * 0.05;
+        }
+
+        // Update Falling & Drifting 3D Petals
+        if (fallingPetalsMesh) {
+          for (let i = 0; i < fallingPetalsState.length; i++) {
+            const p = fallingPetalsState[i];
+            p.y -= p.speedY;
+            p.x += Math.sin(elapsed * p.swayFreq + i) * p.swayAmp + p.burstVx;
+            p.y += p.burstVy;
+
+            p.burstVx *= 0.96;
+            p.burstVy *= 0.95;
+
+            p.rx += p.rotSpeed;
+            p.ry += p.rotSpeed * 0.8;
+            p.rz += p.rotSpeed * 0.5;
+
+            if (p.y < -6.2) {
+              p.y = 6.2;
+              p.x = (Math.random() - 0.5) * 14;
+            }
+
+            petalDummy.position.set(p.x, p.y, p.z);
+            petalDummy.rotation.set(p.rx, p.ry, p.rz);
+            petalDummy.scale.setScalar(p.scale);
+            petalDummy.updateMatrix();
+            fallingPetalsMesh.setMatrixAt(i, petalDummy.matrix);
+          }
+          fallingPetalsMesh.instanceMatrix.needsUpdate = true;
+        }
+
+        // Update Golden Champagne Dust Particles
+        if (dustParticles) {
+          dustParticles.rotation.y = elapsed * 0.03 + AppState.pointer.x * 0.08;
+          dustParticles.position.y = Math.sin(elapsed * 0.4) * 0.15;
+        }
+
+        // Update Birthday Cake & Candle Flames
+        if (cakeGroup && cakeGroup.visible) {
+          cakeGroup.rotation.y = elapsed * 0.22 + AppState.pointer.x * 0.4;
+          cakeGroup.rotation.x = 0.14 + AppState.pointer.y * 0.12;
+
+          candleFlames.forEach((flame) => {
+            if (AppState.candlesLit) {
+              flame.visible = true;
+              const flicker = 0.88 + Math.sin(elapsed * 16 + flame.userData.phase) * 0.14 + Math.cos(elapsed * 23) * 0.08;
+              flame.scale.set(flicker, 0.92 + Math.sin(elapsed * 19 + flame.userData.phase) * 0.2, flicker);
+              flame.rotation.z = Math.sin(elapsed * 11 + flame.userData.phase) * 0.12;
+            } else {
+              flame.visible = false;
+            }
+          });
+
+          candleLights.forEach((light) => {
+            light.intensity = AppState.candlesLit
+              ? 1.25 + Math.sin(elapsed * 15) * 0.22
+              : 0;
+          });
+
+          // Rising Smoke Wisps after Blowing Candles
+          if (AppState.smokeIntensity > 0.01) {
+            AppState.smokeIntensity *= 0.994;
+            smokeParticles.forEach((s) => {
+              const cycle = (elapsed * s.speed + s.userData.offset) % 1;
+              s.position.set(
+                s.userData.ox + Math.sin(elapsed * 2.5 + s.userData.offset) * 0.16 * cycle,
+                s.userData.oy + cycle * 1.15,
+                s.userData.oz + Math.cos(elapsed * 2.2 + s.userData.offset) * 0.16 * cycle
+              );
+              s.scale.setScalar(0.5 + cycle * 2.1);
+              s.material.opacity = Math.sin(cycle * Math.PI) * 0.45 * AppState.smokeIntensity;
+            });
+          }
+        }
+
+        // Update Enchanted Garden Roses
+        if (gardenGroup && gardenGroup.visible) {
+          gardenRoses.forEach((r, idx) => {
+            r.rotation.y = idx * 1.1 + Math.sin(elapsed * 0.5 + idx) * 0.12;
+          });
+        }
+
+        // Subtle Camera Breathing & Pointer Offset
+        camera.position.x += (AppState.pointer.x * 0.35 - camera.position.x) * 0.04;
+        camera.position.y += (0.55 - AppState.pointer.y * 0.25 - camera.position.y) * 0.04;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+
+      // ---------------------------------------------------------------------
+      // 4. CINEMATIC OPENING & GSAP SCROLL CHOREOGRAPHY
+      // ---------------------------------------------------------------------
+      function initOpeningSequence() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate opening lines sequentially
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.to('#intro-line-1', { opacity: 1, y: 0, duration: 1.2, delay: 0.35 })
+          .to('#intro-line-2', { opacity: 1, y: 0, duration: 1.2 }, '-=0.45')
+          .to('#intro-line-3', { opacity: 1, y: 0, duration: 1.35 }, '-=0.35')
+          .to('#intro-cta-wrap', { opacity: 1, y: 0, duration: 1.0 }, '-=0.55');
+
+        // Slowly bloom the opening rose from tight bud to poised half-bloom
+        AppState.bloomTarget = 0.48;
+
+        // Enter World Button Transition
+        document.getElementById('enter-world-btn').addEventListener('click', () => {
+          if (AppState.entered) return;
+          AppState.entered = true;
+          AppState.activeAct = 'hero';
+          AppState.bloomTarget = 0.78;
+
+          // Start ambient romantic music on explicit user interaction
+          audioEngine.start();
+          triggerPetalBurst(32);
+
+          // Camera cinematic zoom settle
+          if (webglReady) {
+            gsap.to(camera.position, {
+              z: 4.9,
+              duration: 1.8,
+              ease: 'power3.inOut'
+            });
+          }
+
+          // Fade out opening curtains and reveal main experience
+          const curtain = document.getElementById('opening-curtain');
+          curtain.style.opacity = '0';
+          curtain.style.pointerEvents = 'none';
+
+          const mainEl = document.getElementById('main-experience');
+          mainEl.classList.remove('opacity-0');
+
+          const navEl = document.getElementById('top-nav');
+          navEl.classList.remove('opacity-0', '-translate-y-4');
+
+          const audioDock = document.getElementById('audio-dock');
+          audioDock.classList.remove('opacity-0', 'translate-y-4');
+
+          setTimeout(() => {
+            curtain.style.display = 'none';
+            setupSectionTriggers();
+          }, 1050);
+        });
+      }
+
+      // Switch 3D Stage Actors seamlessly across Acts
+      function switch3DAct(actName) {
+        if (!webglReady || AppState.activeAct === actName) return;
+        AppState.activeAct = actName;
+
+        if (actName === 'hero' || actName === 'gallery' || actName === 'letter') {
+          heroRoseGroup.visible = true;
+          cakeGroup.visible = false;
+          gardenGroup.visible = false;
+          AppState.bloomTarget = actName === 'hero' ? 0.78 : 0.92;
+        } else if (actName === 'cake') {
+          heroRoseGroup.visible = false;
+          cakeGroup.visible = true;
+          gardenGroup.visible = false;
+        } else if (actName === 'garden') {
+          heroRoseGroup.visible = true;
+          cakeGroup.visible = false;
+          gardenGroup.visible = true;
+          AppState.bloomTarget = 1.0;
+          triggerPetalBurst(24);
+        }
+      }
+
+      function setupSectionTriggers() {
+        ScrollTrigger.create({
+          trigger: '#hero',
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => switch3DAct('hero'),
+          onEnterBack: () => switch3DAct('hero')
+        });
+
+        ScrollTrigger.create({
+          trigger: '#gallery',
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => switch3DAct('gallery'),
+          onEnterBack: () => switch3DAct('gallery')
+        });
+
+        ScrollTrigger.create({
+          trigger: '#letter',
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => switch3DAct('letter'),
+          onEnterBack: () => switch3DAct('letter')
+        });
+
+        ScrollTrigger.create({
+          trigger: '#cake-section',
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onEnter: () => switch3DAct('cake'),
+          onEnterBack: () => switch3DAct('cake')
+        });
+
+        ScrollTrigger.create({
+          trigger: '#garden-finale',
+          start: 'top 60%',
+          end: 'bottom bottom',
+          onEnter: () => switch3DAct('garden'),
+          onEnterBack: () => switch3DAct('garden')
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 5. EDITORIAL PERSONAL PHOTO GALLERY (Upload, Edit Caption, Lightbox)
+      // ---------------------------------------------------------------------
+      const GALLERY_STORAGE_KEY = 'dewmi_18_gallery_v3';
+
+      function saveGalleryState() {
+        try {
+          const serializable = GalleryFrames.map((f) => ({
+            ...f,
+            // Only persist non-blob URLs (data URLs or relative/HTTPS paths)
+            imageUrl: f.imageUrl && !f.imageUrl.startsWith('blob:') ? f.imageUrl : ''
+          }));
+          localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(serializable));
+        } catch (err) {
+          // Ignore quota errors on very large images
+        }
+      }
+
+      function restoreGalleryState() {
+        try {
+          const raw = localStorage.getItem(GALLERY_STORAGE_KEY);
+          if (!raw) return;
+          const saved = JSON.parse(raw);
+          if (Array.isArray(saved) && saved.length > 0) {
+            GalleryFrames.length = 0;
+            saved.forEach((item) => GalleryFrames.push(item));
+          }
+        } catch (err) {
+          // Fallback to default frames
+        }
+      }
+
+      function fileToDataUrl(file) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : URL.createObjectURL(file));
+          reader.onerror = () => resolve(URL.createObjectURL(file));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function renderGallery() {
+        const grid = document.getElementById('gallery-grid');
+        grid.innerHTML = '';
+
+        GalleryFrames.forEach((frame, index) => {
+          const card = document.createElement('article');
+          card.className = `${frame.span} archival-card luxury-glass rounded-2xl p-4 sm:p-5 border border-rosegold/25 flex flex-col justify-between group`;
+
+          const focalClass = frame.objectPosition || 'object-center';
+          const fallbackAttr = frame.fallbackUrl
+            ? `onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='${frame.fallbackUrl}';}"`
+            : '';
+
+          const mediaContent = frame.imageUrl
+            ? `
+              <div class="relative ${frame.aspect} w-full rounded-xl overflow-hidden bg-burgundy-950 cursor-pointer" data-action="lightbox" data-index="${index}">
+                <img src="${frame.imageUrl}" ${fallbackAttr} alt="${frame.title}" class="w-full h-full object-cover ${focalClass} transition-transform duration-700 group-hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-burgundy-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-4">
+                  <span class="text-[11px] uppercase tracking-[0.24em] text-ivory">View Fullscreen</span>
+                  <label class="px-3 py-1 rounded-full bg-burgundy-900/90 border border-rosegold/40 text-[10px] uppercase tracking-[0.2em] text-rosegold-light cursor-pointer" onclick="event.stopPropagation()">
+                    Replace
+                    <input type="file" accept="image/*" class="hidden" data-upload-index="${index}" />
+                  </label>
+                </div>
+              </div>
+            `
+            : `
+              <label class="relative ${frame.aspect} w-full rounded-xl overflow-hidden bg-gradient-to-br from-burgundy-900/95 via-burgundy-800/85 to-burgundy-950 border border-dashed border-rosegold/35 hover:border-rosegold/75 transition-colors flex flex-col items-center justify-center p-6 text-center cursor-pointer">
+                <span class="absolute top-3 left-3 w-4 h-4 border-t border-l border-rosegold/50"></span>
+                <span class="absolute top-3 right-3 w-4 h-4 border-t border-r border-rosegold/50"></span>
+                <span class="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-rosegold/50"></span>
+                <span class="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-rosegold/50"></span>
+
+                <span class="font-serif italic text-3xl text-rosegold-light/60 mb-2">Plate ${frame.roman}</span>
+                <p class="font-serif text-lg text-ivory/90 mb-1">${frame.fileName || 'Personal Memory Frame'}</p>
+                <p class="text-xs text-champagne/60 max-w-[220px] mb-4">Click to place a photograph of Dewmi here</p>
+                <span class="px-4 py-2 rounded-full border border-rosegold/40 text-[10px] uppercase tracking-[0.24em] text-rosegold-light group-hover:bg-rosegold/20 transition-colors">
+                  + Add Photograph
+                </span>
+                <input type="file" accept="image/*" class="hidden" data-upload-index="${index}" />
+              </label>
+            `;
+
+          card.innerHTML = `
+            ${mediaContent}
+            <div class="pt-4 px-1 flex items-start justify-between gap-4">
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.28em] text-rosegold-light">${frame.date}</p>
+                <h3 class="font-serif italic text-xl sm:text-2xl text-ivory mt-0.5">${frame.title}</h3>
+                <p class="text-xs sm:text-sm text-champagne/70 mt-1 leading-relaxed">${frame.caption}</p>
+              </div>
+              <button type="button" class="text-[10px] uppercase tracking-[0.2em] text-champagne/45 hover:text-rosegold-light shrink-0 pt-1 cursor-pointer" data-edit-caption="${index}" title="Edit memory title & caption">
+                Edit
+              </button>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        });
+
+        // Attach individual file upload listeners
+        grid.querySelectorAll('input[data-upload-index]').forEach((input) => {
+          input.addEventListener('change', async (e) => {
+            const idx = Number(e.target.getAttribute('data-upload-index'));
+            const file = e.target.files && e.target.files[0];
+            if (file) {
+              GalleryFrames[idx].imageUrl = await fileToDataUrl(file);
+              saveGalleryState();
+              renderGallery();
+            }
+          });
+        });
+
+        // Attach lightbox listeners
+        grid.querySelectorAll('[data-action="lightbox"]').forEach((el) => {
+          el.addEventListener('click', () => {
+            const idx = Number(el.getAttribute('data-index'));
+            openLightbox(GalleryFrames[idx]);
+          });
+        });
+
+        // Inline caption editor (non-blocking inline prompt inside card)
+        grid.querySelectorAll('[data-edit-caption]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const idx = Number(btn.getAttribute('data-edit-caption'));
+            const frame = GalleryFrames[idx];
+            const card = btn.closest('article');
+            const infoBox = card.querySelector('div.pt-4');
+            infoBox.innerHTML = `
+              <div class="w-full space-y-2">
+                <input type="text" value="${frame.title}" class="w-full bg-burgundy-950/80 border border-rosegold/40 rounded-lg px-3 py-1.5 font-serif text-lg text-ivory focus:outline-none" id="edit-title-${idx}" />
+                <input type="text" value="${frame.caption}" class="w-full bg-burgundy-950/80 border border-rosegold/40 rounded-lg px-3 py-1.5 text-xs text-champagne focus:outline-none" id="edit-cap-${idx}" />
+                <div class="flex justify-end">
+                  <button type="button" class="px-4 py-1 rounded-full bg-rosegold text-burgundy-950 text-[10px] uppercase tracking-[0.2em] font-semibold cursor-pointer" id="save-cap-${idx}">Save</button>
+                </div>
+              </div>
+            `;
+            document.getElementById(`save-cap-${idx}`).addEventListener('click', () => {
+              frame.title = document.getElementById(`edit-title-${idx}`).value.trim() || frame.title;
+              frame.caption = document.getElementById(`edit-cap-${idx}`).value.trim() || frame.caption;
+              saveGalleryState();
+              renderGallery();
+            });
+          });
+        });
+      }
+
+      function openLightbox(frame) {
+        if (!frame || !frame.imageUrl) return;
+        const modal = document.getElementById('photo-lightbox');
+        const imgEl = document.getElementById('lightbox-img');
+        imgEl.onerror = () => {
+          if (frame.fallbackUrl && !imgEl.dataset.triedFallback) {
+            imgEl.dataset.triedFallback = '1';
+            imgEl.src = frame.fallbackUrl;
+          }
+        };
+        delete imgEl.dataset.triedFallback;
+        imgEl.src = frame.imageUrl;
+        document.getElementById('lightbox-meta').textContent = frame.date;
+        document.getElementById('lightbox-title').textContent = frame.title;
+        document.getElementById('lightbox-caption').textContent = frame.caption;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      async function assignFilesToMatchingFrames(fileList) {
+        const imageFiles = Array.from(fileList || []).filter((f) => f.type.startsWith('image/'));
+        if (imageFiles.length === 0) return;
+
+        for (const file of imageFiles) {
+          const url = await fileToDataUrl(file);
+          const lowerName = file.name.toLowerCase();
+          // Match exact filename (5.jpeg -> Plate I, 1.jpeg -> Plate II, 3.jpeg -> Plate III, 2.jpeg -> Plate IV, 4.jpeg -> Plate V)
+          const matchedFrame = GalleryFrames.find((fr) => fr.fileName && fr.fileName.toLowerCase() === lowerName);
+          if (matchedFrame) {
+            matchedFrame.imageUrl = url;
+          } else {
+            const emptySlot = GalleryFrames.find((fr) => !fr.imageUrl || fr.imageUrl.startsWith('birthday images/'));
+            if (emptySlot) {
+              emptySlot.imageUrl = url;
+            }
+          }
+        }
+        saveGalleryState();
+        renderGallery();
+      }
+
+      function initGalleryControls() {
+        restoreGalleryState();
+        renderGallery();
+
+        // One-click Folder Loader (matches 5.jpeg, 1.jpeg, 3.jpeg, 2.jpeg, 4.jpeg automatically)
+        const folderInput = document.getElementById('folder-photo-input');
+        if (folderInput) {
+          folderInput.addEventListener('change', (e) => assignFilesToMatchingFrames(e.target.files));
+        }
+
+        // Multi-file selector
+        document.getElementById('bulk-photo-input').addEventListener('change', (e) => {
+          assignFilesToMatchingFrames(e.target.files);
+        });
+
+        // Lightbox close
+        const modal = document.getElementById('photo-lightbox');
+        document.getElementById('lightbox-close').addEventListener('click', () => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        });
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          }
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 6. INTERACTIVE WAX-SEALED LOVE LETTER
+      // ---------------------------------------------------------------------
+      function initLoveLetter() {
+        const wrapper = document.getElementById('envelope-wrapper');
+        const sealBtn = document.getElementById('wax-seal-btn');
+        const letterCard = document.getElementById('unfolded-letter-card');
+        const bodyContainer = document.getElementById('letter-body-lines');
+        const editBtn = document.getElementById('edit-letter-btn');
+        const closeBtn = document.getElementById('close-letter-btn');
+        const readView = document.getElementById('letter-read-view');
+        const editView = document.getElementById('letter-edit-view');
+        const textarea = document.getElementById('letter-textarea');
+        const saveBtn = document.getElementById('save-letter-btn');
+
+        let paragraphs = [...DefaultLetterParagraphs];
+
+        function populateLetterLines(animate = true) {
+          bodyContainer.innerHTML = '';
+          paragraphs.forEach((text) => {
+            const p = document.createElement('p');
+            p.className = 'letter-line';
+            p.textContent = text;
+            bodyContainer.appendChild(p);
+          });
+
+          const allLines = letterCard.querySelectorAll('.letter-line');
+          allLines.forEach((line, idx) => {
+            line.classList.remove('visible');
+            if (animate) {
+              setTimeout(() => line.classList.add('visible'), 250 + idx * 320);
+            } else {
+              line.classList.add('visible');
+            }
+          });
+        }
+
+        sealBtn.addEventListener('click', () => {
+          wrapper.classList.add('is-open');
+          triggerPetalBurst(18);
+
+          setTimeout(() => {
+            letterCard.classList.remove('hidden');
+            requestAnimationFrame(() => {
+              letterCard.classList.remove('opacity-0', 'translate-y-8');
+            });
+            populateLetterLines(true);
+          }, 650);
+        });
+
+        closeBtn.addEventListener('click', () => {
+          letterCard.classList.add('opacity-0', 'translate-y-8');
+          setTimeout(() => {
+            letterCard.classList.add('hidden');
+            wrapper.classList.remove('is-open');
+          }, 650);
+        });
+
+        editBtn.addEventListener('click', () => {
+          textarea.value = paragraphs.join('\n\n');
+          readView.classList.add('hidden');
+          editView.classList.remove('hidden');
+        });
+
+        saveBtn.addEventListener('click', () => {
+          const raw = textarea.value.trim();
+          if (raw) {
+            paragraphs = raw.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+          }
+          editView.classList.add('hidden');
+          readView.classList.remove('hidden');
+          populateLetterLines(true);
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 7. INTERACTIVE BIRTHDAY CAKE & MAKE-A-WISH (Click or Microphone Blow)
+      // ---------------------------------------------------------------------
+      function initBirthdayCake() {
+        const blowBtn = document.getElementById('blow-candles-btn');
+        const relightBtn = document.getElementById('relight-candles-btn');
+        const blessingCard = document.getElementById('wish-blessing-card');
+        const micBtn = document.getElementById('mic-blow-btn');
+        const micStatus = document.getElementById('mic-status');
+
+        function extinguishCandles() {
+          if (!AppState.candlesLit) return;
+          AppState.candlesLit = false;
+          AppState.smokeIntensity = 1.0;
+          triggerPetalBurst(36);
+          audioEngine.playBirthdayChimeFlourish();
+          if (!audioEngine.isPlaying) {
+            audioEngine.trackMode = 'birthday';
+            document.getElementById('track-title').textContent = 'Happy Birthday to You';
+            document.getElementById('track-subtitle').textContent = 'Felt Piano & Music Box';
+            audioEngine.start();
+          }
+
+          blessingCard.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            blessingCard.classList.remove('opacity-0', 'translate-y-4');
+          });
+          micStatus.classList.add('hidden');
+        }
+
+        function relightCandles() {
+          AppState.candlesLit = true;
+          AppState.smokeIntensity = 0;
+          blessingCard.classList.add('opacity-0', 'translate-y-4');
+          setTimeout(() => blessingCard.classList.add('hidden'), 600);
+        }
+
+        blowBtn.addEventListener('click', extinguishCandles);
+        relightBtn.addEventListener('click', relightCandles);
+
+        // Optional Microphone Blow Detection
+        micBtn.addEventListener('click', async () => {
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            extinguishCandles();
+            return;
+          }
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            micStatus.classList.remove('hidden');
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            const tempCtx = new AudioCtx();
+            const source = tempCtx.createMediaStreamSource(stream);
+            const analyser = tempCtx.createAnalyser();
+            analyser.fftSize = 256;
+            source.connect(analyser);
+
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const checkBlow = () => {
+              if (!AppState.candlesLit) {
+                stream.getTracks().forEach((t) => t.stop());
+                tempCtx.close();
+                return;
+              }
+              analyser.getByteFrequencyData(dataArray);
+              let sum = 0;
+              for (let i = 0; i < 20; i++) sum += dataArray[i];
+              const avg = sum / 20;
+              if (avg > 115) {
+                extinguishCandles();
+                stream.getTracks().forEach((t) => t.stop());
+                tempCtx.close();
+                return;
+              }
+              requestAnimationFrame(checkBlow);
+            };
+            checkBlow();
+          } catch (err) {
+            extinguishCandles();
+          }
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 8. POINTER, AUDIO DOCK & INTERACTION LISTENERS
+      // ---------------------------------------------------------------------
+      function initGlobalInteractions() {
+        // Mouse & Touch Parallax
+        window.addEventListener('mousemove', (e) => {
+          AppState.pointer.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+          AppState.pointer.targetY = (e.clientY / window.innerHeight) * 2 - 1;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          if (e.touches && e.touches[0]) {
+            AppState.pointer.targetX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+            AppState.pointer.targetY = (e.touches[0].clientY / window.innerHeight) * 2 - 1;
+          }
+        }, { passive: true });
+
+        // Click on 3D Canvas triggers rose petal burst
+        document.getElementById('webgl-stage').addEventListener('click', () => {
+          if (AppState.entered) triggerPetalBurst(22);
+        });
+
+        // Top nav & Hero petal buttons
+        document.getElementById('bloom-burst-btn').addEventListener('click', () => triggerPetalBurst(30));
+        document.getElementById('hero-bloom-toggle').addEventListener('click', () => triggerPetalBurst(26));
+        document.getElementById('finale-celebrate-btn').addEventListener('click', () => triggerPetalBurst(42));
+
+        // Audio Dock Controls
+        document.getElementById('audio-toggle-btn').addEventListener('click', () => audioEngine.toggle());
+        document.getElementById('switch-track-btn').addEventListener('click', () => audioEngine.switchBuiltInTrack());
+        document.getElementById('mute-btn').addEventListener('click', () => audioEngine.toggleMute());
+        document.getElementById('volume-slider').addEventListener('input', (e) => {
+          audioEngine.setVolume(parseFloat(e.target.value));
+        });
+        document.getElementById('custom-audio-input').addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) audioEngine.loadLocalFile(file);
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 9. BOOTSTRAP ON WINDOW LOAD
+      // ---------------------------------------------------------------------
+      window.addEventListener('load', () => {
+        initWebGL();
+        animate();
+        initOpeningSequence();
+        initGalleryControls();
+        initLoveLetter();
+        initBirthdayCake();
+        initGlobalInteractions();
+      });
+    })();
+  </script>
+</body>
+</html>
